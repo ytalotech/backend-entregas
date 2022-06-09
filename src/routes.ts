@@ -4,6 +4,7 @@ import { AuthenticateClientController } from "./modules/account/authenticateClie
 import { AuthenticateDeliverymanController } from "./modules/account/authenticateDeliveryman/AuthenticateDeliverymanController";
 import { CreateClientController } from "./modules/clients/useCases/createClient/CreateClientController";
 import { CreateDeliveryController } from "./modules/deliveries/useCases/createDelivery/CreateDeliveryController";
+import { FindAllAvailableController } from "./modules/deliveries/useCases/findAllAvailable/findAllAvailableController";
 import { CreateDeliverymanController } from "./modules/deliveryman/useCases/createDeliveryman/CreateDeliverymanController";
 
 const routes = Router();
@@ -13,6 +14,7 @@ const authenticateClientController = new AuthenticateClientController();
 const createDeliverymanController = new CreateDeliverymanController();
 const authenticateDeliverymanController = new AuthenticateDeliverymanController();
 const createDeliveryController = new CreateDeliveryController();
+const findAllAvailableController = new FindAllAvailableController();
 
 
 routes.post("/client/authenticate/", authenticateClientController.handle);
@@ -23,5 +25,6 @@ routes.post("/deliveryman/", createDeliverymanController.handle);
 
 //primeiro irá verificar o middleware ensureAuthenticateClient e depois irá para o controller se estiver tudo certo
 routes.post("/delivery/", ensureAuthenticateClient, createDeliveryController.handle);
+routes.get("/delivery/available", findAllAvailableController.handle);
 
 export { routes };
